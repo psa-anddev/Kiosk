@@ -1,0 +1,1 @@
+include ':kiosk-delivery-main', ':kiosk-core', ':kiosk-feeds', ':kiosk-gateway-network'
