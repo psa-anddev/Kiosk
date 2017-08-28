@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 26
@@ -16,6 +17,9 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -24,6 +28,14 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
     }
 }
 
@@ -65,4 +77,22 @@ task copyTestClasses(type: Copy) {
 task copySdkClasses(type: Copy) {
     from "build/tmp/kotlin-classes/debug"
     into "build/intermediates/classes/debug"
+}
+
+//This task allows Jacoco to generate coverage reports from unit tests.
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter) +
+            fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")
 }
