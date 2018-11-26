@@ -98,6 +98,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
     doLast {
 	    println "##teamcity[jacocoReport dataPath='kiosk-delivery-main/build/jacoco/testDebugUnitTest.exec' " + 
 		    "includes='com.psa.kiosk.*' " +
-		    "excludes='**/R.class **/R$*.class **/BuildConfig.* **/Manifest*.* **/*Test*.* android/**/*.*']"
+		    "excludes='**/R.class **/R\$*.class **/BuildConfig.* **/Manifest*.* **/*Test*.* android/**/*.*']"
     }
 }
