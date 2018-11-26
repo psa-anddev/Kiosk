@@ -96,7 +96,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
     classDirectories = files([debugTree])
     executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")
     doLast {
-	    println "##teamcity[jacocoReport dataPath='kiosk-delivery-main/build/jacoco/testDebugUnitTest.exec', " + 
+	    println "##teamcity[jacocoReport dataPath='kiosk-delivery-main/build/jacoco/testDebugUnitTest.exec' " + 
 		    "includes='com.psa.kiosk.*']"
     }
 }
