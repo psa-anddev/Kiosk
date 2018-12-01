@@ -14,5 +14,5 @@ jobs:
                 - stage: "Delivery"
                   name: "Build"
                   script: ./gradlew kiosk-delivery-main:assembleDebug
-                  - script: ./gradlew kiosk-delivery-main:jacocoTestReport
-                    name: "Test"
+                - script: ./gradlew kiosk-delivery-main:jacocoTestReport
+                  name: "Test"
