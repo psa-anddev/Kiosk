@@ -21,10 +21,6 @@ jobs:
                 - stage: "Feeds"
                   name: "Build"
                   script: ./gradlew kiosk-feeds:assemble
-                - script: ./gradlew kiosk-feeds:instrument
-                  name: "Instrument"
-                - script: ./gradlew kiosk-feeds:test kiosk-feeds:report
+                - script: ./gradlew kiosk-feeds:instrument kiosk-feeds:test kiosk-feeds:report kiosk-feeds:coverageCheck
                   name: "Test"
-                - script: ./gradlew kiosk-feeds:coverageCheck
-                  name: "Check Coverage"
 
