@@ -7,4 +7,6 @@ android:
         - android-26
         - build-tools-26.0.2
 
+before_install: chmod +x gradlew
+
 script: ./gradlew kiosk-delivery-main:assembleDebug
