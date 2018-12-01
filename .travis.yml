@@ -9,4 +9,10 @@ android:
 
 before_install: chmod +x gradlew
 
-script: ./gradlew kiosk-delivery-main:assembleDebug
+jobs:
+        include:
+                - stage: "Delivery"
+                  name: "Build"
+                  script: ./gradlew kiosk-delivery-main:assembleDebug
+                  - script: ./gradlew kiosk-delivery-main:jacocoTestReport
+                    name: "Test"
